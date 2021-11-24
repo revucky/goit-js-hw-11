@@ -25,3 +25,44 @@
   background-size: cover;
   background-position: center;
 }
+
+.visually-hidden {
+  display: none;
+}
+
+button {
+  background-color: purple;
+  // display: flex;
+  color: green;
+  border: none;
+  padding: 10px;
+  border-radius: 2px;
+}
+.search-form {
+  display: flex;
+  justify-content: center;
+  background-color: #009688;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+input {
+  margin-right: 5px;
+  width: 300px;
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.photo-card {
+  width: 300px;
+  border: 5px solid rgb(247, 113, 136);
+  background-color: aqua;
+}
+.info {
+  display: flex;
+  flex-wrap: wrap;
+}
+.info-item {
+  margin-right: 5px;
+}
