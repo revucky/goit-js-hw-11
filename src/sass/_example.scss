@@ -25,13 +25,17 @@
   background-size: cover;
   background-position: center;
 }
-
+.load-more {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+}
 .visually-hidden {
   display: none;
 }
 
 button {
-  background-color: purple;
+  background-color: pink;
   // display: flex;
   color: green;
   border: none;
@@ -56,13 +60,30 @@ input {
 }
 .photo-card {
   width: 300px;
-  border: 5px solid rgb(247, 113, 136);
+  // border: 5px solid rgb(247, 113, 136);
   background-color: aqua;
+  justify-content: center;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  display: inline-grid;
+  :hover,
+  :focus {
+    background-color: aquamarine;
+    color: gold;
+  }
 }
 .info {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 .info-item {
-  margin-right: 5px;
+  margin-right: 15px;
+}
+b {
+  margin-left: 7px;
 }
