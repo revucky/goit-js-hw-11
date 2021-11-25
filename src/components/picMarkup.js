@@ -1,12 +1,10 @@
 import refs from '../services/refs';
-import SimpleLightbox from 'simplelightbox';
-import 'simplelightbox/dist/simple-lightbox.min.css';
 
 function markupList(data) {
-  const markUp = data.hits
+  const markUp = data
     .map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
       return `<div class="photo-card">
-  <a href="${largeImageURL}" ><img src="${webformatURL}" alt="${tags}" loading="lazy" width=298 /></a>
+  <a href="${largeImageURL}" ><img src="${webformatURL}" alt="${tags}" loading="lazy" width=300 /></a>
   <div class="info">
     <p class="info-item">likes: 
       <b>${likes}</b>
@@ -25,13 +23,8 @@ function markupList(data) {
 `;
     })
     .join('');
-  console.log(markUp);
+
   refs.galleryDiv.insertAdjacentHTML('beforeend', markUp);
-  new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
-  totalPages = data.totalHits;
 }
 
 export default markupList;

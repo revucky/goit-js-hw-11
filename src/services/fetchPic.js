@@ -25,9 +25,9 @@ const MY_KEY = '24480734-3d80cd0fb88d3e4535c800802';
 
 // export { fetchPic, incrementPage };
 
-async function fetchPic(currentPic) {
+async function fetchPic(currentPic, page) {
   const res = await axios.get(
-    `${BASE_URL}${MY_KEY}&q=${currentPic}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40`,
+    `${BASE_URL}${MY_KEY}&q=${currentPic}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${page}`,
   );
 
   if (res.status > 200) {

@@ -1,13 +1,15 @@
 import './sass/main.scss';
-
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import Notiflix from 'notiflix';
 import refs from './services/refs';
 import fetchPic from './services/fetchPic';
 // import pageOption from './services/pageOption';
 import markupList from './components/picMarkup';
 
-let page = 0;
+let page = 1;
 let totalPages = 1;
+let lightbox = null;
 
 const searchInput = e => {
   e.preventDefault();
@@ -19,37 +21,44 @@ const searchInput = e => {
     return;
   }
   page = 1;
+
   const name = refs.input.value.trim();
-  // console.log(name);
   fetchPic(name, page)
     .then(data => {
-      // console.log(data);
-      const markup = markupList(data);
-      console.log(markup);
-      loadMore.classList.remove('visually-hidden');
+      console.log(data);
+      markupList(data.hits);
+      lightbox = new SimpleLightbox('.gallery a', {
+        captionsData: 'alt',
+        captionDelay: 250,
+      });
+      const maxPage = Math.ceil(data.totalHits / 40);
+      refs.loadMoreBtn.classList.remove('visually-hidden');
+      Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
+      if (page >= maxPage) {
+        refs.loadMoreBtn.classList.add('visually-hidden');
+      }
     })
-    .catch(error);
+    .catch(error => {
+      console.log(error);
+    });
 };
 
 const loadMore = e => {
-  e.preventDefault();
   page += 1;
-  if (refs.input.value) {
-    const name = refs.input.value.trim();
-    return fetchPic(name, page)
-      .then(data => {
-        markupList(data);
-        const maxPage = Math.ceil(data.totalHits / 40);
-        lightbox.refresh();
-        if (page > maxPage) {
-          Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
-          loadMore.classList.add('visually-hidden');
-          lightbox.refresh();
-        }
-      })
-      .catch(error);
-  }
-  galleryDiv.innerHTML = '';
+  const name = refs.input.value.trim();
+  fetchPic(name, page)
+    .then(data => {
+      markupList(data.hits);
+      lightbox.refresh();
+      const maxPage = Math.ceil(data.totalHits / 40);
+      if (page >= maxPage) {
+        Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+        refs.loadMoreBtn.classList.add('visually-hidden');
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
 };
 
 function error() {
